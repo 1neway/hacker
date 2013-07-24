@@ -1,0 +1,5 @@
+<p>user: <%= @user.name %></p>
+<p>created: <%= @user.created_at.to_time.strftime("%m-%d-%y")%><p>
+<p>email:  <%= @user.email %></p>
+<p><a href="/submissions/<%=@user.id%>">submissions</a>
+<p><a href="/comments/<%=@user.id%>">comments</a>

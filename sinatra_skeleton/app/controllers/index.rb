@@ -15,7 +15,8 @@ get '/comments' do
 end
 
 get '/ask' do 
-  #add ask scope to post model
+  @posts = Post.ask.order("created_at DESC")
+  erb :index#add ask scope to post model
 end
 
 get '/submit' do
@@ -24,6 +25,32 @@ get '/submit' do
   else
     erb :login_create
   end
+end
+
+get '/user/:id' do
+  @user = User.find(params[:id])
+  erb :profile
+end
+
+get '/submissions/:id' do
+  if @posts
+    @posts = Post.find_by_user_id(params[:id])
+    @posts.order("created_at DESC")
+  end
+  erb :index
+end
+
+get '/comments/:id' do
+  if @comments
+    @comments = Comment.find_by_user_id(params[:id])
+    @comments.order("created_at DESC")
+  end
+  erb :index
+end
+
+get '/logout' do
+  session.clear
+  redirect to('/')
 end
 
 post '/register' do

@@ -1,4 +1,4 @@
-  <h3><a href="www.devbootcamp.com">D</a></h3>
+  <h3><a href="http://www.devbootcamp.com">D</a></h3>
   <h3> Slacker News </h3>
   
   <ul class="header-nav">
@@ -6,4 +6,9 @@
     <li><a href="/comments">comments</a></li>
     <li><a href="/ask">Ask</a></li>
     <li><a href="/submit">submit</a></li>
+    <% if session[:id] %>
+      <li><a href="/user/<%= session[:id] %>">profile</a></li>
+    <% end %>
   </ul>
+  
+  <a href="/logout">Logout</a>
