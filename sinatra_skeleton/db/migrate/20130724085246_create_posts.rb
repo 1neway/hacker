@@ -4,7 +4,7 @@ class CreatePosts < ActiveRecord::Migration
       t.text    :title
       t.string  :url
       t.integer :user_id
-      t.integer :ask?, :default => 0
+      t.integer :ask_post, :default => 0
       t.timestamps
     end
   end

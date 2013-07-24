@@ -27,13 +27,14 @@ get '/submit' do
 end
 
 post '/register' do
-  user = User.new(name: params[:name], password: params[:password], password_confirmation: params[:password_confirmation])
+  user = User.new(name: params[:name], email: params[:email], password: params[:password], password_confirmation: params[:password_confirmation])
   user.save 
+  user.errors.each do |error| puts error end
   if user.id
     session[:id] = user.id
-    redirect to('/')
+    redirect to('/submit')
   else
-    flash[:error] = "Account create failed, here's why; #{user.errors.each{|error| error }}"
+    # flash[:error] = "Account create failed, here's why; #{user.errors.each{|error| error }}"
     redirect to ('/submit')
   end  
 end
@@ -41,6 +42,7 @@ end
 post '/submit' do
   if params[:url]
     post = Post.new(title: params[:title], url: params[:url])
+    post.save
     redirect to('/new')
   elsif params[:comment]
     post = Post.new(title: params[:title], user_id: session[:id], ask: 1)
@@ -50,7 +52,18 @@ post '/submit' do
     post.comments << comment
     redirect to('/new')
   else
-    flash[:error] = "You fucked up!"
+    # flash[:error] = "You fucked up!"
     redirect to('/submit') 
+  end
+end
+
+post '/login' do
+  user = User.find_by_name(params[:name])
+  if user
+    session[:id] = user.id
+    redirect to('/submit')
+  else
+    # flash[:error] = "You fucked up!"
+    redirect to('/submit')
   end
 end
