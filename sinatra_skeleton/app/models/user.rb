@@ -5,27 +5,29 @@ class User < ActiveRecord::Base
   validate :email, :presence => true, :uniqueness => true
   validate :name, :presence => true, :uniqueness => true
 
-  def password
-    @password ||= Password.new(password_hash)
-  end
+  has_secure_password
+  # def password
+  #   @password ||= Password.new(password_hash)
+  # end
 
-  def password=(new_password)
-    @password = Password.create(new_password)
-    self.password_hash = @password
-  end
+  # def password=(new_password)
+  #   @password = Password.create(new_password)
+  #   self.password_hash = @password
+  # end
 
-  def create
-    @user = User.new(params[:user])
-    @user.password = params[:password]
-    @user.save!
-  end
+  # # User.create(params)
+  # def create
+  #   @user = User.new(params[:user])
+  #   @user.password = params[:password]
+  #   @user.save!
+  # end
 
-  def login
-    @user = User.find_by_email(params[:email])
-    if @user.password == params[:password]
-      give_token
-    else
-      redirect_to home_url
-    end
-  end
+  # def login
+  #   @user = User.find_by_email(params[:email])
+  #   if @user.password == params[:password]
+  #     #create session for user, redirect
+  #   else
+  #     #go back to login, flash error message 
+  #   end
+  # end
 end
