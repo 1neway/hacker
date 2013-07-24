@@ -38,8 +38,6 @@ post '/register' do
   end  
 end
 
-post 
-
 post '/submit' do
   if params[:url]
     post = Post.new(title: params[:title], url: params[:url])

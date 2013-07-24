@@ -4,6 +4,7 @@
   user.email = Faker::Internet.email
   # TODO: change to user.password =, update user model to include bcrypt
   user.password = Faker::Lorem.word
+  user.password_confirmation = user.password
   user.save!
   puts "user created"
   2.times do 
